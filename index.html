@@ -9,23 +9,44 @@
   <body>
     <h1>카카오 로그인</h1>
 
-    <!-- <input id="test" type="submit" value="카카오로그인" onclick="test()" /> -->
-
-    <form
-      action="https://hee-backend.shop:7179/auth/kakao/callback"
-      method="GET"
-    >
+    <form action="https://hee-backend.shop:7179/auth/kakao" method="GET">
       <input type="submit" value="카카오로그인" />
     </form>
 
-    <script>
-      // function test() {
-      //   console.log("클릭");
+    <h1>구글 로그인</h1>
 
-      //   fetch("http://localhost:7179/auth/kakao")
-      //     .then((response) => response.json())
-      //     .then((json) => console.log(json));
-      // }
+    <form action="https://hee-backend.shop:7179/auth/google" method="GET">
+      <input type="submit" value="구글로그인" />
+    </form>
+
+    <h3 id="statusCode"></h3>
+    <h3 id="message"></h3>
+    <h3 id="verify"></h3>
+    <h3 id="accessToken"></h3>
+    <h3 id="refreshToken"></h3>
+
+    <script>
+      const statusCode = document.getElementById("statusCode");
+      const message = document.getElementById("message");
+      const verify = document.getElementById("verify");
+      const accessToken = document.getElementById("accessToken");
+      const refreshToken = document.getElementById("refreshToken");
+
+      window.onload = function () {
+        let query = window.location.search;
+        let param = new URLSearchParams(query);
+        let user = param.get("user");
+        let data = JSON.parse(user);
+
+        if (user) {
+          console.log(data);
+          statusCode.textContent = `statusCode: ${data.statusCode}`;
+          message.textContent = `message: ${data.message}`;
+          verify.textContent = `verify: ${data.verify}`;
+          accessToken.textContent = `accessToken: ${data.accessToken}`;
+          refreshToken.textContent = `refreshToken: ${data.refreshToken}`;
+        }
+      };
     </script>
   </body>
 </html>
